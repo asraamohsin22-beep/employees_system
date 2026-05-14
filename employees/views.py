@@ -1,17 +1,19 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .models import Employee
-from weasyprint import HTML
 from django.http import HttpResponse
-from django.template.loader import get_template
-from xhtml2pdf import pisa
 from django.contrib.auth import authenticate, login, logout
-from django.shortcuts import redirect
-
-import pandas as pd
+from django.contrib.auth.decorators import login_required, user_passes_test
 from django.core.files.storage import FileSystemStorage
-
-from django.contrib.auth.decorators import login_required
+from django.template.loader import render_to_string
+from weasyprint import HTML
+import pandas as pd
 from django.contrib.admin.views.decorators import staff_member_required
+def is_admin(user):
+    return user.is_staff
+
+@login_required
+@user_passes_test(is_admin)
+
 def to_int(value):
     if value is None:
         return 0
@@ -22,7 +24,6 @@ def to_int(value):
 @staff_member_required
 def upload_excel(request):
     message = None
-
     if request.method == "POST" and request.FILES.get('file'):
         file = request.FILES['file']
 
