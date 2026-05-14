@@ -78,13 +78,10 @@ button:hover{
 
 <div id="paper">
 {% if request.user.is_staff %}
+<a href="{% url 'upload_excel' %}">رفع ملف</a>
+{% endif %}
 
-<a href="/upload/">
-    <button style="background:#6c757d; color:white; padding:8px 15px; border:none;">
-    رفع ملف Excel
-</button>
-</a>
-</p></p>
+
 {% endif %}
 {% if request.user.is_authenticated %}
 <div style="text-align:right;">
