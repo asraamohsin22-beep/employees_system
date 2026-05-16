@@ -3,21 +3,99 @@
 <head>
 <meta charset="UTF-8">
 <title>رفع ملف Excel</title>
+
+<style>
+body{
+    font-family: Arial;
+    background: #f5f7fa;
+}
+
+/* الحاوية */
+.container{
+    width: 40%;
+    margin: 80px auto;
+    background: white;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0,0,0,0.1);
+    text-align: center;
+}
+
+/* العنوان */
+h2{
+    color: #2c3e50;
+    margin-bottom: 20px;
+}
+
+/* زر الرجوع */
+.back{
+    display: inline-block;
+    margin-bottom: 15px;
+    color: #0d6efd;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+/* input file */
+input[type="file"]{
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+}
+
+/* زر الرفع */
+button{
+    background: #0d6efd;
+    color: white;
+    padding: 10px 25px;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+/* hover */
+button:hover{
+    background: #0b5ed7;
+}
+
+/* رسالة النجاح */
+.success{
+    color: green;
+    margin-top: 15px;
+    font-weight: bold;
+}
+</style>
+
 </head>
 
 <body>
 
-<h2>رفع ملف الموظفين</h2>
+<div class="container">
+
+<a href="{% url 'salary_lookup' %}" class="back">⬅ رجوع الى البحث</a>
+
+<h2>📂 رفع ملف الموظفين</h2>
+
+{% if request.user.is_staff %}
 
 <form method="POST" enctype="multipart/form-data">
     {% csrf_token %}
+
     <input type="file" name="file">
+
     <button type="submit">رفع الملف</button>
 </form>
 
 {% if message %}
-<p style="color:green;">{{ message }}</p>
+<p class="success">{{ message }}</p>
 {% endif %}
 
+</div>
+<div style="text-align:center; margin-top:30px; color:black; font-size:20px; font-weight:bold;">
+     By : Msc asraa mohsin
+</div>
 </body>
 </html>

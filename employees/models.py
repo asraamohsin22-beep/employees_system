@@ -18,7 +18,11 @@ class Employee(models.Model):
 
     location = models.CharField(max_length=100)
     risk_type = models.CharField(max_length=100)
-
+    
+    professional = models.IntegerField(default=0)   # مهنية
+    engineering = models.IntegerField(default=0)    # الهندسية
+    allowances = models.IntegerField(default=0)     # الاضافات
+    final_total = models.IntegerField(default=0)    # المجموع الثاني
     bonuses = models.IntegerField()
     overtime = models.IntegerField()
 

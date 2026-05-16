@@ -1,14 +1,25 @@
 from django.shortcuts import render
 from .models import Employee
-from weasyprint import HTML
+# from weasyprint import HTML
 from django.http import HttpResponse
 from django.template.loader import get_template
-from xhtml2pdf import pisa
+# from xhtml2pdf import pisa
 from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import redirect
 from django.contrib.auth.decorators import login_required
 import pandas as pd
 from django.core.files.storage import FileSystemStorage
+from django.contrib.auth.decorators import login_required
+def to_int(value):
+    if value is None:
+        return 0
+    value = str(value).strip()
+    if value == '' or value.lower() == 'nan':
+        return 0
+    return int(float(value))
+from django.contrib.admin.views.decorators import staff_member_required
+
+@staff_member_required
 def upload_excel(request):
     message = None
 
@@ -21,26 +32,39 @@ def upload_excel(request):
 
         df = pd.read_excel(file_path)
 
+        # حذف البيانات القديمة
+        Employee.objects.all().delete()
+
         for _, row in df.iterrows():
+
+            emp_id = str(row['التسلسل']).strip()
+
             Employee.objects.update_or_create(
-                emp_id=row['التسلسل'],
+                emp_id=emp_id,
                 defaults={
                     'name': row['اسم الموظف'],
                     'job_title': row['عنوان وظيفي'],
                     'grade': row['د وظيفية'],
                     'stage': row['المرحلة'],
-                    'base_salary': row['الراتب'],
+                    'base_salary': to_int(row['الراتب']),
                     'marital_status': row['الزوجية'],
-                    'children': row['الاطفال'],
-                    'risk_type': row['مهنية'],
-                    'bonuses': row['مكافئات'],
-                    'overtime': row['ساعات اضافية'],
-                    'total': row['المجموع'],
-                    'retirement': row['التقاعد'],
-                    'tax': row['الضريبة'],
-                    'deductions': row['الاستقطاعات'],
-                    'social_security': row['صندوق الضمان الاجتماعي'],
-                    'net_salary': row['الصافي'],
+                    'children': to_int(row['الاطفال']),
+                    'position': str(row['المنصب']),
+                    'certificate': str(row['الشهادة']),
+                    'location': str(row['موقع جغرافي']),
+                    'professional': to_int(row['مهنية']),
+                    'engineering': to_int(row['الهندسية']),
+                    'risk_type': str(row['الخطورة']),
+                    'allowances': to_int(row['الاضافات']),
+                    'bonuses': to_int(row['مكافئات']),
+                    'overtime': to_int(row['ساعات اضافية']),
+                    'total': to_int(row['المجموع']),
+                    'retirement': to_int(row['التقاعد']),
+                    'tax': to_int(row['الضريبة']),
+                    'deductions': to_int(row['الاستقطاعات']),
+                    'social_security': to_int(row['صندوق الضمان الاجتماعي']),
+                    'final_total': to_int(row['المجموع.1']),
+                    'net_salary': to_int(row['الصافي']),
                 }
             )
 
@@ -74,7 +98,9 @@ def salary_lookup(request):
         if emp_id:
             emp_id = emp_id.strip()
 
-            employee = Employee.objects.filter(emp_id=emp_id).first()
+            employee = Employee.objects.filter(
+    emp_id=str(emp_id)
+).first()
 
             if not employee:
                 error = "لا يوجد موظف بهذا الرقم"
@@ -90,16 +116,16 @@ def salary_lookup(request):
 def logout_view(request):
     logout(request)
     return redirect('login')
-def generate_pdf(request, emp_id):
-    employee = Employee.objects.filter(emp_id=emp_id).first()
+# def generate_pdf(request, emp_id):
+   # employee = Employee.objects.filter(emp_id=emp_id).first()
 
-    html = render(request, 'salary_pdf.html', {
-        'employee': employee
-    }).content.decode('utf-8')
+   # html = render(request, 'salary_pdf.html', {
+      #  'employee': employee
+  #  }).content.decode('utf-8')
 
-    pdf = HTML(string=html).write_pdf()
+   # pdf = HTML(string=html).write_pdf()
 
-    response = HttpResponse(pdf, content_type='application/pdf')
-    response['Content-Disposition'] = 'attachment; filename="salary.pdf"'
+   # response = HttpResponse(pdf, content_type='application/pdf')
+  #  response['Content-Disposition'] = 'attachment; filename="salary.pdf"'
 
-    return response
+   # return response

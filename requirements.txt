@@ -1,0 +1,5 @@
+Django
+gunicorn
+pandas
+weasyprint
+xhtml2pdf

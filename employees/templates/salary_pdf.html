@@ -2,6 +2,7 @@
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
+
 <style>
 @font-face {
     font-family: 'Arabic';
@@ -10,82 +11,196 @@
 
 body{
     font-family: 'Arabic';
+    background: #f5f7fa;
+    margin: 0;
+    padding: 0;
 }
 
+/* الحاوية */
+.container{
+    width: 80%;
+    margin: 40px auto;
+    background: white;
+    padding: 0px;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0,0,0,0.1);
+}
+
+/* العنوان */
+h2{
+    text-align: center;
+    color: #2c3e50;
+    margin-bottom: 20px;
+}
+
+/* الجدول */
 table{
     width:100%;
     border-collapse: collapse;
 }
 
+/* العناوين */
+td.title{
+    background: #3498db;
+    color: white;
+    font-weight: bold;
+    width: 40%;
+}
+
+/* الخلايا */
 td{
-    border:1px solid black;
-    padding:8px;
+    border:1px solid #ddd;
+    padding:7px;
+}
+
+/* صفوف متناوبة */
+tr:nth-child(even){
+    background: #f2f2f2;
+}
+
+/* الصافي */
+.net{
+    background: #27ae60;
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+/* تأثير hover */
+tr:hover{
+    background: #eaf2f8;
 }
 </style>
 </head>
 
 <body>
 
-<h2 style="text-align:center;">شريط راتب</h2>
+<div class="container">
+
+<h2>📄  شريط الراتب الالكتروني</h2>
 
 <table>
 
 <tr>
-<td>اسم الموظف</td>
+<td class="title">اسم الموظف</td>
 <td>{{ employee.name }}</td>
 </tr>
 
 <tr>
-<td>العنوان الوظيفي</td>
+<td class="title">عنوان وظيفي</td>
 <td>{{ employee.job_title }}</td>
 </tr>
 
 <tr>
-<td>الدرجة / المرحلة</td>
-<td>{{ employee.grade }} / {{ employee.stage }}</td>
+<td class="title">الدرجة الوظيفية</td>
+<td>{{ employee.grade }}</td>
 </tr>
 
 <tr>
-<td>الراتب الاسمي</td>
+<td class="title">المرحلة</td>
+<td>{{ employee.stage }}</td>
+</tr>
+
+<tr>
+<td class="title">الراتب</td>
 <td>{{ employee.base_salary }}</td>
 </tr>
 
 <tr>
-<td>المكافئات</td>
+<td class="title">الزوجية</td>
+<td>{{ employee.marital_status }}</td>
+</tr>
+
+<tr>
+<td class="title">الأطفال</td>
+<td>{{ employee.children }}</td>
+</tr>
+
+<tr>
+<td class="title">المنصب</td>
+<td>{{ employee.position }}</td>
+</tr>
+
+<tr>
+<td class="title">الشهادة</td>
+<td>{{ employee.certificate }}</td>
+</tr>
+
+<tr>
+<td class="title">الموقع الجغرافي</td>
+<td>{{ employee.location }}</td>
+</tr>
+
+<tr>
+<td class="title">مهنية</td>
+<td>{{ employee.professional }}</td>
+</tr>
+
+<tr>
+<td class="title">الهندسية</td>
+<td>{{ employee.engineering }}</td>
+</tr>
+
+<tr>
+<td class="title">الخطورة</td>
+<td>{{ employee.risk_type }}</td>
+</tr>
+
+<tr>
+<td class="title">الإضافات</td>
+<td>{{ employee.allowances }}</td>
+</tr>
+
+<tr>
+<td class="title">مكافآت</td>
 <td>{{ employee.bonuses }}</td>
 </tr>
 
 <tr>
-<td>الساعات الإضافية</td>
+<td class="title">ساعات إضافية</td>
 <td>{{ employee.overtime }}</td>
 </tr>
 
 <tr>
-<td>المجموع</td>
+<td class="title">المجموع</td>
 <td>{{ employee.total }}</td>
 </tr>
 
 <tr>
-<td>التقاعد</td>
+<td class="title">التقاعد</td>
 <td>{{ employee.retirement }}</td>
 </tr>
 
 <tr>
-<td>الضريبة</td>
+<td class="title">الضريبة</td>
 <td>{{ employee.tax }}</td>
 </tr>
 
 <tr>
-<td>الاستقطاعات</td>
+<td class="title">الاستقطاعات</td>
 <td>{{ employee.deductions }}</td>
 </tr>
 
 <tr>
+<td class="title">الضمان الاجتماعي</td>
+<td>{{ employee.social_security }}</td>
+</tr>
+
+<tr>
+<td class="title">المجموع النهائي</td>
+<td>{{ employee.final_total }}</td>
+</tr>
+
+<tr class="net">
 <td>الصافي</td>
-<td><strong>{{ employee.net_salary }}</strong></td>
+<td>{{ employee.net_salary }}</td>
 </tr>
 
 </table>
+<div style="text-align:center; margin-top:30px; color:black; font-size:14px; font-weight:bold;">
+     By : Msc asraa mohsin
+</div>
+</div>
 
 </body>
 </html>

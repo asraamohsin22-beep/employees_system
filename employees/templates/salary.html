@@ -77,14 +77,14 @@ button:hover{
 <body>
 
 <div id="paper">
-    {% if request.user.is_superuser %}
+   {% if request.user.is_staff %}
 
 <a href="/upload/">
     <button style="background:#6c757d; color:white; padding:8px 15px; border:none;">
     رفع ملف Excel
 </button>
 </a>
-
+</p></p>
 {% endif %}
 <div style="text-align:right;">
     <a href="/logout/">
@@ -99,17 +99,30 @@ button:hover{
     <h2>مديرية مجاري بابل</h2>
     <h2>شعبة الحسابات</h2>
     <h2>نظام شريط الراتب الإلكتروني</h2>
+    
 </div>
-<p style="text-align:center; color:gray;">
-يمكنك إدخال الرقم الوظيفي للاطلاع على تفاصيل الراتب
-</p>
+<p style="text-align:center; color:rgb(243, 14, 6);">
 
-<form method="POST">
+
+لاتعتبر هذه الوثيقة رسمية لمخاطبة الدوائر
+</p>
+<p style="text-align:center; color:rgb(128, 128, 128);">
+يمكنك إدخال الرقم الوظيفي للاطلاع على تفاصيل الراتب
+
+</p>
+<form method="POST" style="text-align:center;">
     {% csrf_token %}
-    <input type="text" name="emp_id" placeholder="ادخل الرقم الوظيفي">
-    <button type="submit" style="background:#0d6efd; color:white; padding:8px 15px; border:none;">
-    عرض
-</button>
+
+    <input type="text" name="emp_id" 
+           placeholder="ادخل الرقم الوظيفي"
+           style="width:350px; height:25px; font-size:18px; padding:10px; border-radius:8px; border:1px solid #ccc;">
+
+
+
+    <button type="submit" 
+            style="background:#0d6efd; color:white; padding:10px 25px; border:none; border-radius:8px; font-size:16px;">
+        عرض
+    </button>
 </form>
 
 <br>
@@ -128,37 +141,78 @@ button:hover{
 </tr>
 
 <tr>
-<td class="title">العنوان الوظيفي</td>
+<td class="title">عنوان وظيفي</td>
 <td>{{ employee.job_title }}</td>
 </tr>
 
 <tr>
-<td class="title">الدرجة / المرحلة</td>
-<td>{{ employee.grade }} / {{ employee.stage }}</td>
+    <tr>
+<td class="title">د وظيفية</td>
+<td>{{ employee.grade }}</td>
 </tr>
 
 <tr>
-<td class="title">الراتب الاسمي</td>
+<td class="title"> المرحلة</td>
+<td> {{ employee.stage }}</td>
+</tr>
+
+<tr>
+<td class="title">الراتب </td>
 <td>{{ employee.base_salary }}</td>
 </tr>
 
 <tr>
-<td class="title">الحالة الزوجية / الأطفال</td>
-<td>{{ employee.marital_status }} / {{ employee.children }}</td>
+<td class="title"> الزوجية </td>
+<td>{{ employee.marital_status }}</td>
 </tr>
 
 <tr>
-<td class="title">المخصصات</td>
+<td class="title"> الأطفال</td>
+<td> {{ employee.children }}</td>
+</tr>
+
+<tr>
+<td class="title">المنصب</td>
+<td>{{ employee.position}}</td>
+</tr>
+
+<tr>
+<td class="title">الشهادة</td>
+<td>{{ employee.certificate }}</td>
+</tr>
+
+<tr>
+<td class="title">موقع جغرافي</td>
+<td>{{ employee.location}}</td>
+</tr>
+
+<tr>
+<td class="title">مهنية</td>
+<td>{{ employee.professional }}</td>
+</tr>
+
+<tr>
+<td class="title">الهندسية</td>
+<td>{{ employee.engineering }}</td>
+</tr>
+
+<tr>
+<td class="title">الخطورة</td>
 <td>{{ employee.risk_type }}</td>
-</tr>
+</tr
 
 <tr>
-<td class="title">المكافئات</td>
+<td class="title">الاضافات</td>
+<td>{{ employee.allowances }}</td>
+</tr
+
+<tr>
+<td class="title">مكافئات</td>
 <td>{{ employee.bonuses }}</td>
 </tr>
 
 <tr>
-<td class="title">الساعات الإضافية</td>
+<td class="title">ساعات إضافية</td>
 <td>{{ employee.overtime }}</td>
 </tr>
 
@@ -183,8 +237,13 @@ button:hover{
 </tr>
 
 <tr>
-<td class="title">الضمان الاجتماعي</td>
+<td class="title">صندوق الضمان الاجتماعي</td>
 <td>{{ employee.social_security }}</td>
+</tr>
+
+<tr>
+<td class="title">المجموع.1</td>
+<td>{{ employee.final_total }}</td>
 </tr>
 
 <tr>
@@ -204,6 +263,8 @@ button:hover{
 
 {% endif %}
 </div>
-
+<div style="text-align:center; margin-top:30px; color:black; font-size:20px; font-weight:bold;">
+     By : Msc asraa mohsin
+</div>
 </body>
 </html>
