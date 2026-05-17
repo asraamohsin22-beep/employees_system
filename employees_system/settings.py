@@ -23,7 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-+p0k7-8y9qk07m#l2#r$9rrhwv*!&2sbu6zhp3d+jk#n7wtdd-'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.environ.get("DEBUG", "False") == "True"
 
 ALLOWED_HOSTS = []
 
@@ -119,10 +119,11 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
 
 STATIC_URL = 'static/'
-LOGIN_URL = '/admin/login/'
+LOGIN_URL = '/'
 STATICFILES_DIRS = [
     BASE_DIR / "employees/static",
 ]
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 ALLOWED_HOSTS = ['*']
+CSRF_TRUSTED_ORIGINS = ['https://employees-system-z49s.onrender.com']
