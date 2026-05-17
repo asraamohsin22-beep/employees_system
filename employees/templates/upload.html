@@ -3,99 +3,80 @@
 <head>
 <meta charset="UTF-8">
 <title>رفع ملف Excel</title>
-
 <style>
 body{
-    font-family: Arial;
-    background: #f5f7fa;
+    font-family: Tahoma, Arial;
+    background:#f5f7fa;
+    margin:0;
 }
-
-/* الحاوية */
 .container{
-    width: 40%;
-    margin: 80px auto;
-    background: white;
-    padding: 25px;
-    border-radius: 10px;
-    box-shadow: 0 0 15px rgba(0,0,0,0.1);
-    text-align: center;
+    width:420px;
+    max-width:calc(100% - 30px);
+    margin:80px auto;
+    background:white;
+    padding:25px;
+    border-radius:10px;
+    box-shadow:0 0 15px rgba(0,0,0,0.1);
+    text-align:center;
 }
-
-/* العنوان */
 h2{
-    color: #2c3e50;
-    margin-bottom: 20px;
+    color:#2c3e50;
+    margin:0 0 20px;
 }
-
-/* زر الرجوع */
 .back{
-    display: inline-block;
-    margin-bottom: 15px;
-    color: #0d6efd;
-    text-decoration: none;
-    font-weight: bold;
+    display:inline-block;
+    margin-bottom:15px;
+    color:#0d6efd;
+    text-decoration:none;
+    font-weight:bold;
 }
-
-/* input file */
 input[type="file"]{
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 15px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
+    width:100%;
+    padding:10px;
+    margin-bottom:15px;
+    border:1px solid #ccc;
+    border-radius:8px;
+    box-sizing:border-box;
 }
-
-/* زر الرفع */
 button{
-    background: #0d6efd;
-    color: white;
-    padding: 10px 25px;
-    border: none;
-    border-radius: 8px;
-    font-size: 16px;
-    cursor: pointer;
+    background:#0d6efd;
+    color:white;
+    padding:10px 25px;
+    border:none;
+    border-radius:8px;
+    font-size:16px;
+    cursor:pointer;
 }
-
-/* hover */
-button:hover{
-    background: #0b5ed7;
-}
-
-/* رسالة النجاح */
 .success{
-    color: green;
-    margin-top: 15px;
-    font-weight: bold;
+    color:green;
+    margin-top:15px;
+    font-weight:bold;
+}
+.error{
+    color:#dc3545;
+    margin-top:15px;
+    font-weight:bold;
 }
 </style>
-
 </head>
-
 <body>
-
 <div class="container">
+    <a href="{% url 'salary_lookup' %}" class="back">رجوع إلى البحث</a>
+    <h2>رفع ملف الموظفين</h2>
 
-<a href="{% url 'salary_lookup' %}" class="back">⬅ رجوع الى البحث</a>
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <input type="file" name="file" accept=".xlsx,.xls" required>
+        <button type="submit">رفع الملف</button>
+    </form>
 
-<h2>📂 رفع ملف الموظفين</h2>
-<<<<<<< HEAD
-=======
+    {% if message %}
+    <p class="success">{{ message }}</p>
+    {% endif %}
 
-{% if request.user.is_staff %}
->>>>>>> ffbaacae5c1dec8bedf54c7f613a6ee3d654aea0
-
-<form method="POST" enctype="multipart/form-data">
-    {% csrf_token %}
-
-    <input type="file" name="file">
-
-   
-</form>
-
-{% if message %}
-<p class="success">{{ message }}</p>
-{% endif %}
-
+    {% if error %}
+    <p class="error">{{ error }}</p>
+    {% endif %}
 </div>
 <div style="text-align:center; margin-top:30px; color:black; font-size:20px; font-weight:bold;">
      By : Msc asraa mohsin

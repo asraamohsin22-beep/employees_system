@@ -77,31 +77,22 @@ button:hover{
 <body>
 
 <div id="paper">
-<<<<<<< HEAD
 {% if request.user.is_staff %}
-
-
-
-
-
-
-=======
-   {% if request.user.is_staff %}
-
-
-</a>
-</p></p>
->>>>>>> ffbaacae5c1dec8bedf54c7f613a6ee3d654aea0
-{% endif %}
-{% if request.user.is_authenticated %}
-<div style="text-align:right;">
-    <a href="/logout/">
-        <button style="background:#dc3545; color:white; padding:8px 15px; border:none;">
-            تسجيل خروج
+<div style="text-align:right; margin-bottom:10px;">
+    <a href="{% url 'upload_excel' %}">
+        <button style="background:#6c757d; color:white; padding:8px 15px; border:none;">
+            رفع ملف Excel
         </button>
     </a>
 </div>
 {% endif %}
+<div style="text-align:right;">
+    <a href="/logout/">
+        <button style="background:#dc3545; color:white; padding:8px 15px; border:none;">
+    تسجيل خروج
+</button>
+    </a>
+</div>
 
 <div class="header">
     <img src="{% static 'logo.png' %}">
@@ -210,16 +201,10 @@ button:hover{
 <td>{{ employee.risk_type }}</td>
 </tr
 
-
 <tr>
 <td class="title">الاضافات</td>
 <td>{{ employee.allowances }}</td>
-<<<<<<< HEAD
-</tr>
-
-=======
 </tr
->>>>>>> ffbaacae5c1dec8bedf54c7f613a6ee3d654aea0
 
 <tr>
 <td class="title">مكافئات</td>

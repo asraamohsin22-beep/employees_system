@@ -1,6 +1,9 @@
 django
 gunicorn
 whitenoise
-weasyprint
 pandas
 openpyxl
+reportlab
+arabic-reshaper
+python-bidi
+xhtml2pdf
