@@ -7,7 +7,7 @@ from django.core.files.storage import FileSystemStorage
 from django.template.loader import render_to_string
 from weasyprint import HTML
 import pandas as pd
-from django.contrib.admin.views.decorators import staff_member_required
+#from django.contrib.admin.views.decorators import staff_member_required
 def is_admin(user):
     return user.is_staff
 
@@ -21,55 +21,7 @@ def to_int(value):
     if value == '' or value.lower() == 'nan':
         return 0
     return int(float(value))
-@staff_member_required
-def upload_excel(request):
-    message = None
-    if request.method == "POST" and request.FILES.get('file'):
-        file = request.FILES['file']
 
-        fs = FileSystemStorage()
-        filename = fs.save(file.name, file)
-        file_path = fs.path(filename)
-
-        df = pd.read_excel(file_path)
-           # ✅ حذف البيانات القديمة
-        Employee.objects.all().delete()
-
-        for _, row in df.iterrows():
-          
-                emp_id = str(row['التسلسل']).strip()
-                Employee.objects.update_or_create(
-                 emp_id=emp_id,
-                 defaults={
-                    'name': row['اسم الموظف'],
-                    'job_title': row['عنوان وظيفي'],
-                    'grade': row['د وظيفية'],
-                    'stage': row['المرحلة'],
-                    'base_salary': to_int(row['الراتب']),
-                    'marital_status': row['الزوجية'],
-                    'children': to_int(row['الاطفال']),
-                    'position': str(row['المنصب']),
-                    'certificate': str(row['الشهادة']),
-                    'location': str(row['موقع جغرافي']),
-                    'professional': to_int(row['مهنية']),
-                    'engineering':to_int(row['الهندسية']),
-                    'risk_type': str(row['الخطورة']),
-                    'allowances': to_int(row['الاضافات']),
-                    'bonuses': to_int(row['مكافئات']),
-                    'overtime': to_int(row['ساعات اضافية']),
-                    'total': to_int(row['المجموع']),
-                    'retirement': to_int(row['التقاعد']),
-                    'tax': to_int(row['الضريبة']),
-                    'deductions': to_int(row['الاستقطاعات']),
-                    'social_security': to_int(row['صندوق الضمان الاجتماعي']),
-                    'final_total': to_int(row['المجموع.1']),
-                    'net_salary': to_int(row['الصافي']),
-                }
-            )
-
-        message = "تم رفع البيانات بنجاح ✅"
-
-    return render(request, "upload.html", {"message": message})
 def login_view(request):
     error = None
 
