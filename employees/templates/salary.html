@@ -77,6 +77,7 @@ button:hover{
 <body>
 
 <div id="paper">
+<<<<<<< HEAD
 {% if request.user.is_staff %}
 
 
@@ -84,6 +85,16 @@ button:hover{
 
 
 
+=======
+   {% if request.user.is_staff %}
+
+<a href="/upload/">
+    <button style="background:#6c757d; color:white; padding:8px 15px; border:none;">
+    رفع ملف Excel
+</button>
+</a>
+</p></p>
+>>>>>>> ffbaacae5c1dec8bedf54c7f613a6ee3d654aea0
 {% endif %}
 {% if request.user.is_authenticated %}
 <div style="text-align:right;">
@@ -200,14 +211,18 @@ button:hover{
 <tr>
 <td class="title">الخطورة</td>
 <td>{{ employee.risk_type }}</td>
-</tr>
+</tr
 
 
 <tr>
 <td class="title">الاضافات</td>
 <td>{{ employee.allowances }}</td>
+<<<<<<< HEAD
 </tr>
 
+=======
+</tr
+>>>>>>> ffbaacae5c1dec8bedf54c7f613a6ee3d654aea0
 
 <tr>
 <td class="title">مكافئات</td>

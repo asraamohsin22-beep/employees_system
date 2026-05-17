@@ -78,6 +78,11 @@ button:hover{
 <a href="{% url 'salary_lookup' %}" class="back">⬅ رجوع الى البحث</a>
 
 <h2>📂 رفع ملف الموظفين</h2>
+<<<<<<< HEAD
+=======
+
+{% if request.user.is_staff %}
+>>>>>>> ffbaacae5c1dec8bedf54c7f613a6ee3d654aea0
 
 <form method="POST" enctype="multipart/form-data">
     {% csrf_token %}
